@@ -1,0 +1,153 @@
+/* Container for the entire medium page */
+.medium-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+}
+
+/* Logo image styling */
+.logo-image img {
+  max-width: 100%;
+  width: 300px;
+  height: auto;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.logo-image img:hover {
+  transform: scale(1.05);
+}
+
+/* Search form container */
+#mainContainer {
+  display: flex;
+  justify-content: center;
+  margin: 40px auto;
+  padding: 20px;
+  background: #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  width: 90%;
+  max-width: 500px;
+}
+
+/* Search bar styling */
+.search-bar {
+  flex: 1;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: border-color 0.3s ease-in-out;
+}
+
+.search-bar:focus {
+  border-color: #49b1e9;
+  outline: none;
+  box-shadow: 0 0 5px rgba(73, 177, 233, 0.5);
+}
+
+/* Search button styling */
+.search-button {
+  padding: 12px 25px;
+  margin-left: 10px;
+  border: none;
+  background: #28a745;
+  color: white;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.search-button:hover {
+  transform: translateY(-2px);
+}
+
+/* Grid container for movie cards */
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(200px, 1fr)
+  ); /* Responsive grid */
+  gap: 20px;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* Individual result card */
+.results-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 15px;
+  border: 1px solid #000000;
+  border-radius: 8px;
+  background-color: #000000;
+  text-align: center;
+  cursor: pointer;
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+.results-container:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transform: translateY(-5px); /* Slight lift on hover */
+}
+
+/* Movie title styling */
+.movie-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 10px 0;
+  color: white;
+}
+
+/* Movie poster styling */
+.movie-poster {
+  width: 100%;
+  max-width: 250px;
+  margin: 10px 0;
+  border-radius: 5px;
+}
+
+/* Movie description styling */
+.movie-description {
+  font-size: 14px;
+  color: #ffffff;
+  margin: 10px 0;
+  line-height: 1.5;
+}
+
+/* Release date styling */
+.movie-date {
+  font-size: 14px;
+  font-weight: bold;
+  color: #ffffff;
+  margin-top: 10px;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  #mainContainer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-bar {
+    margin-bottom: 10px;
+    width: 100%;
+  }
+
+  .card-container {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  }
+
+  .movie-poster {
+    max-width: 120px;
+  }
+}
