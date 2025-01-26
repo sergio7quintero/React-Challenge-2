@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
 export default function List() {
@@ -8,31 +8,25 @@ export default function List() {
   const storedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
   const task = storedTasks.find((task) => task.id === parseInt(id));
 
-  const [taskTitle, setTaskTitle] = useState(task ? task.title : "");
-
-  const handleSave = () => {
-    const updatedTasks = storedTasks.map((t) =>
-      t.id === parseInt(id) ? { ...t, title: taskTitle } : t
+  if (!task) {
+    return (
+      <div>
+        <h2>Task Not Found</h2>
+        <button onClick={() => navigate("/hard")}>Back to Task List</button>
+      </div>
     );
-    localStorage.setItem("tasks", JSON.stringify(updatedTasks));
-    navigate("/");
-  };
+  }
 
   return (
     <div>
-      {task ? (
-        <>
-          <h2>Edit Task</h2>
-          <input
-            type="text"
-            value={taskTitle}
-            onChange={(e) => setTaskTitle(e.target.value)}
-          />
-          <button onClick={handleSave}>Save</button>
-        </>
-      ) : (
-        <p>Task not found</p>
-      )}
+      <h2>Task Details</h2>
+      <div>
+        <h3>Task: {task.title}</h3>
+        <p>
+          <strong>Details:</strong> {task.details}
+        </p>
+      </div>
+      <button onClick={() => navigate("/hard")}>Back to Task List</button>
     </div>
   );
 }

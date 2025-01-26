@@ -3,15 +3,22 @@ import { Link } from "react-router-dom";
 
 export default function Hard() {
   const [tasks, setTasks] = useState([]);
-  const [newTask, setNewTask] = useState("");
-  const [editingTaskId, setEditingTaskId] = useState(null); // ID of the task being edited
-  const [editTaskTitle, setEditTaskTitle] = useState(""); // Title of the task being edited
+  const [newTaskTitle, setNewTaskTitle] = useState("");
+  const [newTaskDetails, setNewTaskDetails] = useState("");
+  const [editingTaskId, setEditingTaskId] = useState(null);
+  const [editTaskTitle, setEditTaskTitle] = useState("");
+  const [editTaskDetails, setEditTaskDetails] = useState("");
 
   const handleAddTask = () => {
-    if (newTask.trim()) {
-      const newTaskObj = { id: Date.now(), title: newTask };
+    if (newTaskTitle.trim() && newTaskDetails.trim()) {
+      const newTaskObj = {
+        id: Date.now(),
+        title: newTaskTitle,
+        details: newTaskDetails,
+      };
       setTasks([...tasks, newTaskObj]);
-      setNewTask("");
+      setNewTaskTitle("");
+      setNewTaskDetails("");
     }
   };
 
@@ -20,19 +27,23 @@ export default function Hard() {
   };
 
   const handleEditTask = (task) => {
-    setEditingTaskId(task.id); // Set the task to be edited
-    setEditTaskTitle(task.title); // Pre-fill the input with the task's current title
+    setEditingTaskId(task.id);
+    setEditTaskTitle(task.title);
+    setEditTaskDetails(task.details);
   };
 
   const handleSaveEdit = (id) => {
-    if (editTaskTitle.trim()) {
+    if (editTaskTitle.trim() && editTaskDetails.trim()) {
       setTasks(
         tasks.map((task) =>
-          task.id === id ? { ...task, title: editTaskTitle } : task
+          task.id === id
+            ? { ...task, title: editTaskTitle, details: editTaskDetails }
+            : task
         )
       );
-      setEditingTaskId(null); // Reset editing state
-      setEditTaskTitle(""); // Clear the input
+      setEditingTaskId(null);
+      setEditTaskTitle("");
+      setEditTaskDetails("");
     }
   };
 
@@ -43,9 +54,15 @@ export default function Hard() {
         <input
           className="task-input"
           type="text"
-          value={newTask}
-          onChange={(e) => setNewTask(e.target.value)}
+          value={newTaskTitle}
+          onChange={(e) => setNewTaskTitle(e.target.value)}
           placeholder="Add a new task"
+        />
+        <input
+          className="task-input"
+          value={newTaskDetails}
+          onChange={(e) => setNewTaskDetails(e.target.value)}
+          placeholder="Add task details"
         />
         <button className="add-task-button" onClick={handleAddTask}>
           Add Task
@@ -55,15 +72,23 @@ export default function Hard() {
         {tasks.map((task) => (
           <li className="task-item" key={task.id}>
             {editingTaskId === task.id ? (
-              <input
-                className="edit-input"
-                type="text"
-                value={editTaskTitle}
-                onChange={(e) => setEditTaskTitle(e.target.value)}
-              />
+              <>
+                <input
+                  className="edit-input"
+                  type="text"
+                  value={editTaskTitle}
+                  onChange={(e) => setEditTaskTitle(e.target.value)}
+                />
+                <input
+                  className="edit-input"
+                  value={editTaskDetails}
+                  onChange={(e) => setEditTaskDetails(e.target.value)}
+                />
+              </>
             ) : (
               <Link className="task-link" to={`/task/${task.id}`}>
-                {task.title}
+                <strong>{task.title}</strong>
+                <p>{task.details}</p>
               </Link>
             )}
 
